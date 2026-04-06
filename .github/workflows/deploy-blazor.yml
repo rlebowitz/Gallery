@@ -44,15 +44,7 @@ jobs:
     - name: Install .NET WebAssembly Tools
       run: dotnet workload install wasm-tools
       
-    # Source - https://stackoverflow.com/a/78349674
-    # Posted by programmer
-    # Retrieved 2026-04-05, License - CC BY-SA 4.0
-    - name: Change base href in App.razor to match gh repo name 🏷️
-      run: |
-        cd ${{ env.SRC }}
-        REPO_NAME=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
-        sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$REPO_NAME'\/" \/>/g' ./wwwroot/index.html
-
+    
     # Publish the Blazor WASM site
     - name: Publish Blazor Site
       run: dotnet publish Gallery.Web/Gallery.Web.csproj -c Release -o publish -p:GHPages=true
@@ -61,6 +53,14 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: publish/wwwroot
+
+# Source - https://stackoverflow.com/a/78349674
+    # Posted by programmer
+    # Retrieved 2026-04-05, License - CC BY-SA 4.0
+    - name: Change base href in App.razor to match gh repo name 🏷️
+      run: |
+        REPO_NAME=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
+        sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$REPO_NAME'\/" \/>/g' publish/wwwroot/index.html
 
   # Deployment job
   deploy:
