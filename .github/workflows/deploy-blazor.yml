@@ -44,9 +44,14 @@ jobs:
     - name: Install .NET WebAssembly Tools
       run: dotnet workload install wasm-tools
       
-    # changes the base-tag in index.html from '/' to '[ProjectName]' to match GitHub Pages repository subdirectory
-    - name: Change base-tag in index.html from / to Gallery
-      run: sed -i 's/<base href="\/" \/>/<base href="\/Gallery\/" \/>/g' release/wwwroot/index.html
+    # Source - https://stackoverflow.com/a/78349674
+    # Posted by programmer
+    # Retrieved 2026-04-05, License - CC BY-SA 4.0
+    - name: Change base href in App.razor to match gh repo name 🏷️
+      run: |
+        cd ${{ env.SRC }}/Client
+        REPO_NAME=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
+        sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$REPO_NAME'\/" \/>/g' ./wwwroot/index.html
 
     # Publish the Blazor WASM site
     - name: Publish Blazor Site
