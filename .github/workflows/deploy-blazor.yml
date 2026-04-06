@@ -49,13 +49,14 @@ jobs:
     - name: Publish Blazor Site
       run: dotnet publish Gallery.Web/Gallery.Web.csproj -c Release -o release -p:GHPages=true
       
+    # changes the base-tag in index.html from '/' to 'Gallery' to match GitHub Pages repository subdirectory
+    - name: Change base-tag in index.html from / to Gallery
+      run: sed -i 's/<base href="\/" \/>/<base href="\/Gallery\/" \/>/g' release/wwwroot/index.html
+ 
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
       run: touch release/wwwroot/.nojekyll
-
-    - name: Change base href in App.razor to match gh repo name 🏷️
-      run: sed -i 's/<base href="\/" \/>/<base href="\/Gallery\/" \/>/g' release/wwwroot/index.html
- 
+    
  - name: Upload all published files
       uses: actions/upload-pages-artifact@v3
       with:

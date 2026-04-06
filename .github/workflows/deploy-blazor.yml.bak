@@ -49,7 +49,7 @@ jobs:
     - name: Publish Blazor Site
       run: dotnet publish Gallery.Web/Gallery.Web.csproj -c Release -o release -p:GHPages=true
       
-       # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
       run: touch release/wwwroot/.nojekyll
 
