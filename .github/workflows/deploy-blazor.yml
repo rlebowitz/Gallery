@@ -49,7 +49,7 @@ jobs:
     # Retrieved 2026-04-05, License - CC BY-SA 4.0
     - name: Change base href in App.razor to match gh repo name 🏷️
       run: |
-        cd ${{ env.SRC }}/Client
+        cd ${{ env.SRC }}
         REPO_NAME=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
         sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$REPO_NAME'\/" \/>/g' ./wwwroot/index.html
 
