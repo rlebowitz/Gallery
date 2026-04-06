@@ -56,8 +56,8 @@ jobs:
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
     - name: Add .nojekyll file
       run: touch release/wwwroot/.nojekyll
-    
- - name: Upload all published files
+
+    - name: Upload all published files
       uses: actions/upload-pages-artifact@v3
       with:
         path: release/wwwroot
