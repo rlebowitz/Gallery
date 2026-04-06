@@ -47,21 +47,20 @@ jobs:
     
     # Publish the Blazor WASM site
     - name: Publish Blazor Site
-      run: dotnet publish Gallery.Web/Gallery.Web.csproj -c Release -o publish -p:GHPages=true
+      run: dotnet publish Gallery.Web/Gallery.Web.csproj -c Release -o release -p:GHPages=true
+      
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
 
-    - name: Upload all published files
+    - name: Change base href in App.razor to match gh repo name 🏷️
+      run: sed -i 's/<base href="\/" \/>/<base href="\/Gallery\/" \/>/g' release/wwwroot/index.html
+ 
+ - name: Upload all published files
       uses: actions/upload-pages-artifact@v3
       with:
-        path: publish/wwwroot
-
-# Source - https://stackoverflow.com/a/78349674
-    # Posted by programmer
-    # Retrieved 2026-04-05, License - CC BY-SA 4.0
-    - name: Change base href in App.razor to match gh repo name 🏷️
-      run: |
-        REPO_NAME=$(echo "${{ github.repository }}" | awk -F '/' '{print $NF}')
-        sed -i 's/<base href="\/"[[:blank:]]*\/>/<base href="\/'$REPO_NAME'\/" \/>/g' publish/wwwroot/index.html
-
+        path: release/wwwroot
+        
   # Deployment job
   deploy:
     environment:
