@@ -113,3 +113,28 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+
+.carousel-item img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px; /* Set your preferred height */
+    width: auto;
+    object-fit: contain;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    filter: invert(1) grayscale(100);
+}
+
+.carousel-caption {
+    /*  background: rgba(0, 0, 0, 0.5); */ /* Semi-transparent background */
+    bottom: 2rem;
+    border-radius: 10px;
+    text-align: center;
+}
