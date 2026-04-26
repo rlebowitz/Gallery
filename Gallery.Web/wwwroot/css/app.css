@@ -138,3 +138,14 @@ code {
     border-radius: 10px;
     text-align: center;
 }
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: none;
+}
+
+    .navbar-dark .navbar-toggler-icon::after {
+        content: "\f0c9";
+        font-family: "FontAwesome";
+        font-size: 22px;
+        color: #333;
+    }
